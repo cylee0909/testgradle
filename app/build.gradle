@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply from: "test.gradle"
+apply plugin: 'com.cylee.testplugin'
 println("in :app:build.gradle start")
 
 android {

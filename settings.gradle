@@ -1,3 +1,3 @@
 println("in settings.gradle start")
-include ':app'
+include ':app', ':testplugin'
 println("in settings.gradle end "+gradle.hashCode())

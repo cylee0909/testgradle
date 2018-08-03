@@ -3,9 +3,13 @@ println("in build.gradle start")
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url uri("/repo")
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.cylee.testplugin:cylee:1.0.0'
     }
 }
 
