@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+apply from: "test.gradle"
+println("in :app:build.gradle start")
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+    defaultConfig {
+        applicationId "com.cylee.testandroid"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    sourceSets {
+        main {
+            jni.srcDirs = []
+        }
+    }
+
+    println("in android config")
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+task mytask {
+    println("evalute mytask")
+    doLast {
+        println("execute mytask complete!")
+    }
+
+    doFirst {
+        println("start execute mytask!")
+    }
+}
+
+
+
+project.afterEvaluate {
+    println("$it.name evalute complete")
+    it.tasks.all {
+        if ("assembleDebug".equals(it.name)) {
+//            mytask.dependsOn it
+        }
+        println("task ---> $it.name")
+    }
+}
+
+project.gradle.addBuildListener(new BuildListener() {
+    @Override
+    void buildStarted(Gradle gradle) {
+        println("build started!")
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println("build finished!")
+    }
+})
+
+project.gradle.addListener(new TaskExecutionListener(){
+    @Override
+    void beforeExecute(Task task) {
+        println("befor task execute ---> "+task.name)
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState state) {
+        println("after task execute ---> "+task.name)
+    }
+})
+
+dependencies {
+    compile 'com.android.tools.build:gradle:2.2.0'
+}
+
+println("in :app:build.gradle end "+gradle.hashCode()+" "+project.hashCode())

@@ -1,0 +1,1 @@
+println ("in test.gradle end "+gradle.hashCode()+" "+project.hashCode())
