@@ -40,6 +40,11 @@ task mytask {
 }
 
 
+democonfig {
+    config_test = "hello config_test"
+    config_int = 2
+}
+
 
 project.afterEvaluate {
     println("$it.name evalute complete")
